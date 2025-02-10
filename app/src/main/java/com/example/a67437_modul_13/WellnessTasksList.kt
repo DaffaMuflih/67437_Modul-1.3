@@ -11,21 +11,16 @@ fun getWellnessTasks() = List(30) { i -> WellnessTask(i, "Task # $i") }
 
 @Composable
 fun WellnessTasksList(
-    modifier: Modifier = Modifier,
-    list: List<WellnessTask> = remember { getWellnessTasks() }
+    list: List<WellnessTask>,
+    onCloseTask: (WellnessTask) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    LazyColumn(
-        modifier = modifier
-    ) {
-        items(list) { task ->
-            val checkedState = remember { mutableStateOf(false) } // Menyimpan state untuk setiap item
-
-            WellnessTaskItem(
-                taskName = task.label,
-                checked = checkedState.value,
-                onCheckedChange = { newValue -> checkedState.value = newValue },
-                onClose = {} // Implementasi tombol close jika diperlukan
-            )
+    LazyColumn(modifier = modifier) {
+        items(
+            items = list,
+            key = { task -> task.id }
+        ) { task ->
+            WellnessTaskItem(taskName = task.label, onClose = { onCloseTask(task) })
         }
     }
 }
