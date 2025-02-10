@@ -11,22 +11,44 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Checkbox
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 
 @Composable
 fun WellnessTaskItem(
     taskName: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
     onClose: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier, verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.padding(8.dp)
     ) {
-        Text(
-            modifier = Modifier.weight(1f).padding(start = 16.dp),
-            text = taskName
+        Checkbox(
+            checked = checked,
+            onCheckedChange = onCheckedChange
         )
+        Text(text = taskName, modifier = Modifier.weight(1f))
         IconButton(onClick = onClose) {
-            Icon(Icons.Filled.Close, contentDescription = "Close")
+            Icon(imageVector = Icons.Filled.Close, contentDescription = "Close")
         }
     }
 }
+
+@Composable
+fun WellnessTaskItemWrapper(taskName: String, modifier: Modifier = Modifier) {
+    val checkedState = rememberSaveable { mutableStateOf(false) }
+
+    WellnessTaskItem(
+        taskName = taskName,
+        checked = checkedState.value,
+        onCheckedChange = { newValue -> checkedState.value = newValue },
+        onClose = {}, // Implementasi nanti
+        modifier = modifier
+    )
+}
+
+
