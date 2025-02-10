@@ -24,16 +24,20 @@ fun WellnessTaskItem(
     modifier: Modifier = Modifier
 ) {
     Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.padding(8.dp)
+        modifier = modifier, verticalAlignment = Alignment.CenterVertically
     ) {
+        Text(
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 16.dp),
+            text = taskName
+        )
         Checkbox(
             checked = checked,
             onCheckedChange = onCheckedChange
         )
-        Text(text = taskName, modifier = Modifier.weight(1f))
         IconButton(onClick = onClose) {
-            Icon(imageVector = Icons.Filled.Close, contentDescription = "Close")
+            Icon(Icons.Filled.Close, contentDescription = "Close")
         }
     }
 }

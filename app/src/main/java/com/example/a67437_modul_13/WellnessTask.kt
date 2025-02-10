@@ -11,12 +11,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.a67437_modul_13.ui.theme._67437_Modul13Theme
 
-data class WellnessTask(
+class WellnessTask(
     val id: Int,
     val label: String,
-    //initialChecked: Boolean = false
-)
+    initialChecked: Boolean = false
+) {
+    var checked by mutableStateOf(initialChecked)
+}
